@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generatehtml = require('./index.html')
+const employee = require('./lib/employee.js')
+const generatehtml = require('./src/generat.js')
 
 //Questions the user will be asked
 let questions = [
@@ -8,22 +9,22 @@ let questions = [
         type: 'input',
         message: "What is your role?",
         name: 'role',
-        }
-    { 
+    },
+    {
     type: 'input',
     message: "What is your name",
     name: 'name',
-    }
+    },
     {
         type: 'input',
         message: "What is your Id number?",
         name: 'Id ',
-    }
+    },
     {
         type: 'input',
         message: "What is your email",
         name: 'email',
-    }
+    },
     {
         type: 'input',
         message: "What is your office number?",
@@ -55,3 +56,5 @@ function init() {
 }
 
 init();
+
+//filter.map.push.join
