@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const employee = require("./lib/Employee.js");
+const Employee = require("./lib/Employee.js");
 const manager = require("./lib/Manager.js");
 const engineer = require("./lib/Engineer.js");
 const intern = require("./lib/Intern.js");
@@ -77,32 +77,69 @@ const internQtn = [
     },
 ]
 
-    // catch (err) {
+// //different questions varying on the employee type.
+
+// const employeeAnswers = inquirer.prompt(questions);
+// switch (employeeAnswers.employeeType) {
+//     case 'Manager': {
+//         const managerAnswers = inquirer.prompt(managerQtn);
+//         employeeAnswers.thisAnswers = managerAnswers;
+//         break;
+//     }
+//     case 'Intern': {
+//         const internAnswers =  inquirer.prompt(internQtn);
+//         employeeAnswers.thisAnswers = internAnswers;
+//         break;
+//     }
+//     case 'Engineer': {
+//         const engineerAnswers = inquirer.prompt(engineerQtn);
+//         employeeAnswers.thisAnswers = engineerAnswers;
+//         break;
+//     }
+// }
+
+const myEmployees = []
+const totalEmployees = [];
+    // for each employee in my employee list
+    myEmployees.forEach(employee => {
+        const name = employee.name;
+        const id = employee.id;
+        const email = employee.email;
+        const employeeType = employee.employeeType;
+
+        //each employee type (manager, engineer, or intern) has slightly different questions here
+        switch (employeeType) {
+            case 'Manager': {
+                const officeNumber = employee.thisAnswers.officeNumber;
+                const manager = new Manager(name, id, email, officeNumber);
+                totalEmployees.push(manager);
+                break;
+            }
+            case 'Intern': {
+                const school = employee.thisAnswers.school;
+                const intern = new Intern(name, id, email, school);
+                totalEmployees.push(intern);
+                break;
+            }
+            case 'Engineer': {
+                const github = employee.thisAnswers.github;
+                const engineer = new Engineer(name, id, email, github);
+                totalEmployees.push(engineer);
+                break;
+            }
+        }
+
+    })
+    return (totalEmployees);
+
+    // .catch (err) {
     //     // if error, return the error
     //     console.log(err)
 
     // }
 
 
-//different questions varying on the employee type.
-const employeeAnswers = inquirer.prompt(questions);
-switch (employeeAnswers.employeeType) {
-    case 'Manager': {
-        const managerAnswers = await inquirer.prompt(managerQtn);
-        employeeAnswers.thisAnswers = managerAnswers;
-        break;
-    }
-    case 'Intern': {
-        const internAnswers = await inquirer.prompt(internQtn);
-        employeeAnswers.thisAnswers = internAnswers;
-        break;
-    }
-    case 'Engineer': {
-        const engineerAnswers = await inquirer.prompt(engineerQtn);
-        employeeAnswers.thisAnswers = engineerAnswers;
-        break;
-    }
-}
+
 
 function init() {
     return inquirer.prompt(questions).then((response) => {
@@ -114,6 +151,6 @@ function init() {
    });
 }
 
-init();
+//init();
 
 //filter.map.push.join
