@@ -8,11 +8,6 @@ const generatehtml = require('./src/generat');
 
 //Questions the user will be asked
 let questions = [
-    // { 
-    //     type: 'input',
-    //     message: "What is your role?",
-    //     name: 'role',
-    // },
     {
         type: 'input',
         message: "What is your name",
@@ -34,6 +29,9 @@ let questions = [
         message: 'What is the employee type?',
         choices: ['Employee','Manager', 'Engineer', 'Intern']
     },
+]
+
+const typeQtn = [
     {
         type: 'list',
         name: 'employeeType',
@@ -77,60 +75,72 @@ const internQtn = [
     },
 ]
 
-// //different questions varying on the employee type.
+function init() {
+    return inquirer.prompt(questions).then((response) => {
+        fs.writeFile("./dist/test.html", generatehtml(response), (err) => {
+            err
+          ? console.log(err)
+            : console.log("success");
+          });
+   });
+}
+init();
 
-// const employeeAnswers = inquirer.prompt(questions);
-// switch (employeeAnswers.employeeType) {
-//     case 'Manager': {
-//         const managerAnswers = inquirer.prompt(managerQtn);
-//         employeeAnswers.thisAnswers = managerAnswers;
-//         break;
-//     }
-//     case 'Intern': {
-//         const internAnswers =  inquirer.prompt(internQtn);
-//         employeeAnswers.thisAnswers = internAnswers;
-//         break;
-//     }
-//     case 'Engineer': {
-//         const engineerAnswers = inquirer.prompt(engineerQtn);
-//         employeeAnswers.thisAnswers = engineerAnswers;
-//         break;
-//     }
-// }
+//different questions varying on the employee type.
 
-const myEmployees = []
-const totalEmployees = [];
-    // for each employee in my employee list
-    myEmployees.forEach(employee => {
-        const name = employee.name;
-        const id = employee.id;
-        const email = employee.email;
-        const employeeType = employee.employeeType;
 
-        //each employee type (manager, engineer, or intern) has slightly different questions here
-        switch (employeeType) {
-            case 'Manager': {
-                const officeNumber = employee.thisAnswers.officeNumber;
-                const manager = new Manager(name, id, email, officeNumber);
-                totalEmployees.push(manager);
-                break;
-            }
-            case 'Intern': {
-                const school = employee.thisAnswers.school;
-                const intern = new Intern(name, id, email, school);
-                totalEmployees.push(intern);
-                break;
-            }
-            case 'Engineer': {
-                const github = employee.thisAnswers.github;
-                const engineer = new Engineer(name, id, email, github);
-                totalEmployees.push(engineer);
-                break;
-            }
-        }
+const employeeAnswers = response //inquirer.prompt(questions);
+switch (employeeAnswers.employeeType) {
+    case 'Manager': {
+        const managerAnswers = inquirer.prompt(managerQtn);
+        employeeAnswers.thisAnswers = managerAnswers;
+        break;
+    }
+    case 'Intern': {
+        const internAnswers =  inquirer.prompt(internQtn);
+        employeeAnswers.thisAnswers = internAnswers;
+        break;
+    }
+    case 'Engineer': {
+        const engineerAnswers = inquirer.prompt(engineerQtn);
+        employeeAnswers.thisAnswers = engineerAnswers;
+        break;
+    }
+}
 
-    })
-    return (totalEmployees);
+// const myEmployees = []
+// const totalEmployees = [];
+//     // for each employee in my employee list
+//     myEmployees.forEach(employee => {
+//         const name = employee.name;
+//         const id = employee.id;
+//         const email = employee.email;
+//         const employeeType = employee.employeeType;
+
+//         //each employee type (manager, engineer, or intern) has slightly different questions here
+//         switch (employeeType) {
+//             case 'Manager': {
+//                 const officeNumber = employee.thisAnswers.officeNumber;
+//                 const manager = new Manager(name, id, email, officeNumber);
+//                 totalEmployees.push(manager);
+//                 break;
+//             }
+//             case 'Intern': {
+//                 const school = employee.thisAnswers.school;
+//                 const intern = new Intern(name, id, email, school);
+//                 totalEmployees.push(intern);
+//                 break;
+//             }
+//             case 'Engineer': {
+//                 const github = employee.thisAnswers.github;
+//                 const engineer = new Engineer(name, id, email, github);
+//                 totalEmployees.push(engineer);
+//                 break;
+//             }
+//         }
+
+    // })
+    // return (totalEmployees);
 
     // .catch (err) {
     //     // if error, return the error
@@ -141,16 +151,6 @@ const totalEmployees = [];
 
 
 
-function init() {
-    return inquirer.prompt(questions).then((response) => {
-        fs.writeFile("./index.html", generatehtml(response), (err) => {
-            err
-          ? console.log(err)
-            : console.log("success");
-          });
-   });
-}
 
-//init();
 
 //filter.map.push.join
