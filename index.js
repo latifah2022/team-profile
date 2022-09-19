@@ -1,10 +1,11 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const Employee = require("./lib/Employee.js");
-const manager = require("./lib/Manager.js");
-const engineer = require("./lib/Engineer.js");
-const intern = require("./lib/Intern.js");
-const generatehtml = require('./src/generat');
+//const Employee = require("./lib/Employee.js");
+const Manager = require("./lib/Manager.js");
+const Engineer = require("./lib/Engineer.js");
+const Intern = require("./lib/Intern.js");
+const generatehtml = require('./src/generat.js');
+const employees = [];
 
 //Questions the user will be asked
 let questions = [
@@ -16,19 +17,19 @@ let questions = [
     {
         type: 'input',
         message: "What is your Id number?",
-        name: 'Id ',
+        name: 'employeeId',
     },
     {
         type: 'input',
         message: "What is your email",
         name: 'email',
     },
-    // {
-    //     type: 'list',
-    //     name: 'employeeType',
-    //     message: 'What is the employee type?',
-    //     choices: ['Employee','Manager', 'Engineer', 'Intern']
-    // },
+    {
+        type: 'list',
+        name: 'employeeType',
+        message: 'What is the employee type?',
+        choices: ['Employee','Manager', 'Engineer', 'Intern']
+    },
 ]
 
 const typeQtn = [
@@ -36,7 +37,7 @@ const typeQtn = [
         type: 'list',
         name: 'employeeType',
         message: 'What is the employee type?',
-        choices: ['Employee','Manager', 'Engineer', 'Intern']
+        choices: ['Manager', 'Engineer', 'Intern']
     },
 ]
 
@@ -62,7 +63,6 @@ const engineerQtn = [
         type: 'input',
         message: "What is your GitHub username?",
         name: 'username',
-        //validate: (value) => {if(value){return "engineer"} else {return ""}}
     },
 ]
 
@@ -71,29 +71,28 @@ const internQtn = [
         type: 'input',
         message: "What is your School?",
         name: 'school',
-        //validate: (value) => {if(value){return "intern"} else {return ""}}
     },
 ]
 
-function init() {
-    return inquirer.prompt(questions).then((response) => {
-        fs.writeFile("./dist/test.html", generatehtml(response), (err) => {
-            err
-          ? console.log(err)
-            : console.log("success");
-          });
-   });
-}
-init();
+
 
 //different questions varying on the employee type.
 
 //const employeeType = typeQtn.choices
-//const employeeAnswers = inquirer.prompt(questions);
-switch (employeeAnswers.typeQtn.choices) {
+const employeeAnswers = inquirer.prompt(questions);
+employeeAnswers.then((answer) => {
+    console.log(answer)
+
+
+switch (answer.employeeType) {
     case 'Manager': {
         const managerAnswers = inquirer.prompt(managerQtn);
-        employeeAnswers.this.choices[1] = managerAnswers;
+        managerAnswers.then((office) => {
+            const managerObj = new Manager(answer.name,answer.employeeId,answer.email,office.office);
+            employees.push(managerObj);
+            console.log(employees)
+        })
+        //employeeAnswers.this.choices[1] = managerAnswers;
         break;
     }
     case 'Intern': {
@@ -107,6 +106,7 @@ switch (employeeAnswers.typeQtn.choices) {
         break;
     }
 }
+ })
 
 // const myEmployees = []
 // const totalEmployees = [];
@@ -117,7 +117,7 @@ switch (employeeAnswers.typeQtn.choices) {
 //         const email = employee.email;
 //         const employeeType = employee.employeeType;
 
-//         //each employee type (manager, engineer, or intern) has slightly different questions here
+//         //each employee type has slightly different questions here
 //         switch (employeeType) {
 //             case 'Manager': {
 //                 const officeNumber = employee.thisAnswers.officeNumber;
@@ -139,8 +139,8 @@ switch (employeeAnswers.typeQtn.choices) {
 //             }
 //         }
 
-    // })
-    // return (totalEmployees);
+//     })
+//     return (totalEmployees);
 
     // .catch (err) {
     //     // if error, return the error
@@ -148,7 +148,16 @@ switch (employeeAnswers.typeQtn.choices) {
 
     // }
 
-
+    function init() {
+         return  inquirer.prompt(questions).then((response) => {
+            fs.writeFile("./dist/test.html", generatehtml(response), (err) => {
+                err
+              ? console.log(err)
+                : console.log("success");
+              });
+       });
+    }
+    //init();
 
 
 
