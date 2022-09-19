@@ -23,12 +23,12 @@ let questions = [
         message: "What is your email",
         name: 'email',
     },
-    {
-        type: 'list',
-        name: 'employeeType',
-        message: 'What is the employee type?',
-        choices: ['Employee','Manager', 'Engineer', 'Intern']
-    },
+    // {
+    //     type: 'list',
+    //     name: 'employeeType',
+    //     message: 'What is the employee type?',
+    //     choices: ['Employee','Manager', 'Engineer', 'Intern']
+    // },
 ]
 
 const typeQtn = [
@@ -36,7 +36,7 @@ const typeQtn = [
         type: 'list',
         name: 'employeeType',
         message: 'What is the employee type?',
-        choices: ['Employ','Manager', 'Engineer', 'Intern']
+        choices: ['Employee','Manager', 'Engineer', 'Intern']
     },
 ]
 
@@ -88,22 +88,22 @@ init();
 
 //different questions varying on the employee type.
 
-
-const employeeAnswers = response //inquirer.prompt(questions);
-switch (employeeAnswers.employeeType) {
+//const employeeType = typeQtn.choices
+//const employeeAnswers = inquirer.prompt(questions);
+switch (employeeAnswers.typeQtn.choices) {
     case 'Manager': {
         const managerAnswers = inquirer.prompt(managerQtn);
-        employeeAnswers.thisAnswers = managerAnswers;
+        employeeAnswers.this.choices[1] = managerAnswers;
         break;
     }
     case 'Intern': {
         const internAnswers =  inquirer.prompt(internQtn);
-        employeeAnswers.thisAnswers = internAnswers;
+        employeeAnswers.this.choices[2] = internAnswers;
         break;
     }
     case 'Engineer': {
         const engineerAnswers = inquirer.prompt(engineerQtn);
-        employeeAnswers.thisAnswers = engineerAnswers;
+        employeeAnswers.this.choices[3] = engineerAnswers;
         break;
     }
 }
