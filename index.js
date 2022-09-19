@@ -97,12 +97,25 @@ switch (answer.employeeType) {
     }
     case 'Intern': {
         const internAnswers =  inquirer.prompt(internQtn);
-        employeeAnswers.this.choices[2] = internAnswers;
+        internAnswers.then((myschool) => {
+            const internObj = new Intern(answer.name, answer.employeeId,answer.email,myschool.school);
+            employees.push(internObj);
+            console.log(employees)
+        })
+        //employeeAnswers.this.choices[2] = internAnswers;
         break;
     }
     case 'Engineer': {
         const engineerAnswers = inquirer.prompt(engineerQtn);
-        employeeAnswers.this.choices[3] = engineerAnswers;
+        engineerAnswers.then((github) => {
+            const engineerObj = new Engineer(answer.name, answer.employeeId,answer.email,github.github);
+            employees.push(engineerObj);
+            console.log(employees)
+        })
+    
+
+
+        //employeeAnswers.this.choices[3] = engineerAnswers;
         break;
     }
 }
