@@ -1,6 +1,5 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-//const Employee = require("./lib/Employee.js");
 const Manager = require("./lib/Manager.js");
 const Engineer = require("./lib/Engineer.js");
 const Intern = require("./lib/Intern.js");
@@ -83,7 +82,6 @@ const employeeAnswers = inquirer.prompt(questions);
 employeeAnswers.then((answer) => {
     console.log(answer)
 
-
 switch (answer.employeeType) {
     case 'Manager': {
         const managerAnswers = inquirer.prompt(managerQtn);
@@ -115,51 +113,20 @@ switch (answer.employeeType) {
         //employeeAnswers.this.choices[3] = engineerAnswers;
         break;
     }
+   }
+})
+
+function init() {
+const output =  generatehtml(employees)
+fs.writeFile("./dist/test.html", generatehtml(employeeAnswers), (err) => {
+err
+? console.log(err)
+: console.log("success");
+});
 }
- })
+//init();
 
-// fs.writeFile("./dist/test.html", generatehtml(response), (err) => {
-// err
-// ? console.log(err)
-// : console.log("success");
-// });
-
-// const myEmployees = []
-// const totalEmployees = [];
-//     // for each employee in my employee list
-//     myEmployees.forEach(employee => {
-//         const name = employee.name;
-//         const id = employee.id;
-//         const email = employee.email;
-//         const employeeType = employee.employeeType;
-
-//         //each employee type has slightly different questions here
-//         switch (employeeType) {
-//             case 'Manager': {
-//                 const officeNumber = employee.thisAnswers.officeNumber;
-//                 const manager = new Manager(name, id, email, officeNumber);
-//                 totalEmployees.push(manager);
-//                 break;
-//             }
-//             case 'Intern': {
-//                 const school = employee.thisAnswers.school;
-//                 const intern = new Intern(name, id, email, school);
-//                 totalEmployees.push(intern);
-//                 break;
-//             }
-//             case 'Engineer': {
-//                 const github = employee.thisAnswers.github;
-//                 const engineer = new Engineer(name, id, email, github);
-//                 totalEmployees.push(engineer);
-//                 break;
-//             }
-//         }
-
-//     })
-//     return (totalEmployees);
-
-
-    // function init() {
+ // function init() {
     //      return  inquirer.prompt(questions).then((response) => {
     //         fs.writeFile("./dist/test.html", generatehtml(response), (err) => {
     //             err
@@ -168,9 +135,7 @@ switch (answer.employeeType) {
     //           });
     //    });
     // }
+    
     //init();
 
 
-
-
-//filter.map.push.join
