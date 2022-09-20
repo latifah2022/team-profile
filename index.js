@@ -3,7 +3,7 @@ const fs = require('fs');
 const Manager = require("./lib/Manager.js");
 const Engineer = require("./lib/Engineer.js");
 const Intern = require("./lib/Intern.js");
-const generatehtml = require('./src/generat.js');
+const generatehtml = require('./lib/generate');
 const employees = [];
 
 //Questions the user will be asked
@@ -90,7 +90,6 @@ switch (answer.employeeType) {
             employees.push(managerObj);
             console.log(employees)
         })
-        //employeeAnswers.this.choices[1] = managerAnswers;
         break;
     }
     case 'Intern': {
@@ -100,7 +99,6 @@ switch (answer.employeeType) {
             employees.push(internObj);
             console.log(employees)
         })
-        //employeeAnswers.this.choices[2] = internAnswers;
         break;
     }
     case 'Engineer': {
@@ -117,14 +115,14 @@ switch (answer.employeeType) {
 })
 
 function init() {
-const output =  generatehtml(employees)
-fs.writeFile("./dist/test.html", generatehtml(employeeAnswers), (err) => {
+const render =  generatehtml(employees)
+fs.writeFile("./dist/test.html", render(employeeAnswers), (err) => {
 err
 ? console.log(err)
 : console.log("success");
 });
 }
-//init();
+init();
 
  // function init() {
     //      return  inquirer.prompt(questions).then((response) => {
