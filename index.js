@@ -27,7 +27,7 @@ let questions = [
         type: 'list',
         name: 'employeeType',
         message: 'What is the employee type?',
-        choices: ['Employee','Manager', 'Engineer', 'Intern']
+        choices: ['Employee','Manager', 'Engineer', 'Intern', 'Finished']
     },
 ]
 
@@ -36,7 +36,7 @@ const typeQtn = [
         type: 'list',
         name: 'employeeType',
         message: 'What is the employee type?',
-        choices: ['Manager', 'Engineer', 'Intern']
+        choices: ['Manager', 'Engineer', 'Intern', 'Finished']
     },
 ]
 
@@ -78,6 +78,8 @@ const internQtn = [
 //different questions varying on the employee type.
 
 //const employeeType = typeQtn.choices
+function start() {
+
 const employeeAnswers = inquirer.prompt(questions);
 employeeAnswers.then((answer) => {
     console.log(answer)
@@ -87,8 +89,8 @@ switch (answer.employeeType) {
         const managerAnswers = inquirer.prompt(managerQtn);
         managerAnswers.then((office) => {
             const managerObj = new Manager(answer.name,answer.employeeId,answer.email,office.office);
-            employees.push(managerObj);
-            console.log(employees)
+            employees.push(managerObj)
+            start();
         })
         break;
     }
@@ -96,8 +98,8 @@ switch (answer.employeeType) {
         const internAnswers =  inquirer.prompt(internQtn);
         internAnswers.then((myschool) => {
             const internObj = new Intern(answer.name, answer.employeeId,answer.email,myschool.school);
-            employees.push(internObj);
-            console.log(employees)
+            employees.push(internObj)
+            start();
         })
         break;
     }
@@ -106,23 +108,31 @@ switch (answer.employeeType) {
         engineerAnswers.then((github) => {
             const engineerObj = new Engineer(answer.name, answer.employeeId,answer.email,github.username);
             employees.push(engineerObj);
-            console.log(employees)
+            start();
         })
         //employeeAnswers.this.choices[3] = engineerAnswers;
         break;
     }
+    case "Finished" : {
+        init()
+        break;
+    }
    }
 })
+}
+start()
 
 function init() {
 const render =  generatehtml(employees)
-fs.writeFile("./dist/test.html", render(employeeAnswers), (err) => {
+fs.writeFile("./dist/team.html", render, (err) => {
 err
 ? console.log(err)
 : console.log("success");
 });
 }
-init();
+
+
+//init();
 
  // function init() {
     //      return  inquirer.prompt(questions).then((response) => {
