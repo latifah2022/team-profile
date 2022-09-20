@@ -108,18 +108,21 @@ switch (answer.employeeType) {
     case 'Engineer': {
         const engineerAnswers = inquirer.prompt(engineerQtn);
         engineerAnswers.then((github) => {
-            const engineerObj = new Engineer(answer.name, answer.employeeId,answer.email,github.github);
+            const engineerObj = new Engineer(answer.name, answer.employeeId,answer.email,github.username);
             employees.push(engineerObj);
             console.log(employees)
         })
-    
-
-
         //employeeAnswers.this.choices[3] = engineerAnswers;
         break;
     }
 }
  })
+
+// fs.writeFile("./dist/test.html", generatehtml(response), (err) => {
+// err
+// ? console.log(err)
+// : console.log("success");
+// });
 
 // const myEmployees = []
 // const totalEmployees = [];
@@ -155,21 +158,16 @@ switch (answer.employeeType) {
 //     })
 //     return (totalEmployees);
 
-    // .catch (err) {
-    //     // if error, return the error
-    //     console.log(err)
 
+    // function init() {
+    //      return  inquirer.prompt(questions).then((response) => {
+    //         fs.writeFile("./dist/test.html", generatehtml(response), (err) => {
+    //             err
+    //           ? console.log(err)
+    //             : console.log("success");
+    //           });
+    //    });
     // }
-
-    function init() {
-         return  inquirer.prompt(questions).then((response) => {
-            fs.writeFile("./dist/test.html", generatehtml(response), (err) => {
-                err
-              ? console.log(err)
-                : console.log("success");
-              });
-       });
-    }
     //init();
 
 
