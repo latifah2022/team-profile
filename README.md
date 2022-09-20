@@ -20,9 +20,9 @@ This is my team profile that generates the team members
 
 "manager,engineer,intern" and there respective contact information.
 
-## Team members
+This is the repo link [GitHub](https://github.com/latifah2022/team-profile)
 
-Employee
+## Team members
 
 Manager
 
@@ -30,11 +30,11 @@ Engineer
 
 Inern
 
-##license
+## license
 
 NONE
 
-##Demonstrations
+## Demonstrations
 
 [Watch video 1](https://drive.google.com/file/d/1f66zfKikt92tCCYaHNuq3ermFFnFN7hz/view)
 
